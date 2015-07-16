@@ -1,9 +1,7 @@
 library(shiny)
 library(car)    
-#needed for recode()
 
 shinyServer(function(input, output) {
-  
   values <- reactiveValues()
   observe({
     input$action_Calc
@@ -14,18 +12,15 @@ shinyServer(function(input, output) {
     })
     values$amt <- isolate(input$num_prin) + values$int
     })
-  
   output$text_principal <- renderText({
     input$action_Calc
     paste("Principal amount [$]:", isolate(input$num_prin))
   })
-  
   output$text_intrate <- renderText({
     input$action_Calc
     paste("Interest rate: ", isolate(input$slider_int), 
           " % per year")
   })
-  
   output$text_num <- renderText({
     input$action_Calc
     paste("Time period ", isolate(input$slider_num),
@@ -39,11 +34,9 @@ shinyServer(function(input, output) {
     else
       paste("Simple Interest [$]:", values$int)
   })
-  
   output$text_amt <- renderText({
     if(input$action_Calc == 0) ""
     else 
       paste("Total Amount Owed [$]:", values$amt)
   })
-  
 })
